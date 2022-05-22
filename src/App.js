@@ -1,68 +1,61 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { StrictMode, useState } from 'react';
 
 function App() {
-  const [preOperator, setPreOperator] = useState(0);
-  const [postOperator, setPostOperator] = useState(0);
-  const [operator, setOperator] = useState(0);
-  const [result, finalResult] = useState(0);
-  const updateResult = () => {
-    finalResult( () => {
-      switch (operator) {
-        case '+':
-          return preOperator + postOperator;
-        case '-':
-          return preOperator - postOperator;
-        case '*':
-          return preOperator * postOperator;
-        case '/':
-          return preOperator / postOperator;
-        default:
-          return preOperator;
+  const [number, numberValue] = useState(0);
+  const clickedButton = (val) => {
+    numberValue( () => {
+      if (number == '0') {
+        return val;
+      }else{
+        return number + val;
       }
+
     });
   }
-  return (
+  const clickedEqual = () => {
+    var calculateNumber = eval(number);
+    numberValue(calculateNumber);
+  }
+
+   return (
     <div className="App">
       <header className="App-header">
-        <div class="container">
-          <div class="calculator">
-            {operator !== 0 ? (
-                <input type="text" id="input" value={ preOperator + operator + postOperator } />
-              ) : (
-                <input type="text" id="input" value={ preOperator } />
-              )  }
-            <input type="text" id="input" value={ result } />
+        <div className="container">
+          <div className="calculator">
+            <div className='canvus'>
+              {number}
+            </div>
             <table>
               <tr>
-                <td><button onClick={ () => (operator !== 0) ? setPostOperator(postOperator*10 + 1) : setPreOperator(preOperator*10 + 1) }>1</button></td>
-                <td><button onClick={ () => (operator !== 0) ? setPostOperator(postOperator*10 + 2) : setPreOperator(preOperator*10 + 2) }>2</button></td>
-                <td><button onClick={ () => (operator !== 0) ? setPostOperator(postOperator*10 + 3) : setPreOperator(preOperator*10 + 3) }>3</button></td>
-                <td><button>C</button></td>
+                <td><button onClick={() => clickedButton('1')}>1</button></td>
+                <td><button onClick={() => clickedButton('2')}>2</button></td>
+                <td><button onClick={() => clickedButton('3')}>3</button></td>
+                <td><button onClick={ () => numberValue('0') }>C</button></td>
               </tr>
               <tr>
-                <td><button onClick={ () => (operator !== 0) ? setPostOperator(postOperator*10 + 7) : setPreOperator(preOperator*10 + 7) }>7</button></td>
-                <td><button onClick={ () => (operator !== 0) ? setPostOperator(postOperator*10 + 8) : setPreOperator(preOperator*10 + 8) }>8</button></td>
-                <td><button onClick={ () => (operator !== 0) ? setPostOperator(postOperator*10 + 9) : setPreOperator(preOperator*10 + 9) }>9</button></td>
-                <td><button onClick={ () => setOperator('*')}>X</button></td>
+                <td><button onClick={() => clickedButton('7')}>7</button></td>
+                <td><button onClick={() => clickedButton('8')}>8</button></td>
+                <td><button onClick={() => clickedButton('9')}>9</button></td>
+                <td><button onClick={() => clickedButton('*')}>X</button></td>
               </tr>
               <tr>
-                <td><button onClick={ () => (operator !== 0) ? setPostOperator(postOperator*10 + 4) : setPreOperator(preOperator*10 + 4) }>4</button></td>
-                <td><button onClick={ () => (operator !== 0) ? setPostOperator(postOperator*10 + 5) : setPreOperator(preOperator*10 + 5) }>5</button></td>
-                <td><button onClick={ () => (operator !== 0) ? setPostOperator(postOperator*10 + 6) : setPreOperator(preOperator*10 + 6) }>6</button></td>
-                <td><button onClick={ () => setOperator('-')}>-</button></td>
+                <td><button onClick={() => clickedButton('4')}>4</button></td>
+                <td><button onClick={() => clickedButton('5')}>5</button></td>
+                <td><button onClick={() => clickedButton('6')}>6</button></td>
+                <td><button onClick={() => clickedButton('-')}>-</button></td>
               </tr>
               <tr>
-                <td><button onClick={ () => (operator !== 0) ? setPostOperator(postOperator*10 + 1) : setPreOperator(preOperator*10 + 1) }>1</button></td>
-                <td><button onClick={ () => (operator !== 0) ? setPostOperator(postOperator*10 + 2) : setPreOperator(preOperator*10 + 2) }>2</button></td>
-                <td><button onClick={ () => (operator !== 0) ? setPostOperator(postOperator*10 + 3) : setPreOperator(preOperator*10 + 3) }>3</button></td>
-                <td><button onClick={ () => setOperator('+')}>+</button></td>
+                <td><button onClick={() => clickedButton('1')}>1</button></td>
+                <td><button onClick={() => clickedButton('2')}>2</button></td>
+                <td><button onClick={() => clickedButton('3')}>3</button></td>
+                <td><button onClick={() => clickedButton('+')}>+</button></td>
               </tr>
               <tr>
-                <td><button onClick={ () => (operator !== 0) ? setPostOperator(postOperator*10 + 0) : setPreOperator(preOperator*10 + 0) }>0</button></td>
-                <td><button onClick={ () => setOperator('*')}>.</button></td>
-                <td><button onClick={ () => setOperator('/')}>/</button></td>
-                <td><button onClick={ () => updateResult() }>=</button></td>
+                <td><button onClick={() => clickedButton('0')}>0</button></td>
+                <td><button>.</button></td>
+                <td><button onClick={() => clickedButton('/')}>/</button></td>
+                <td><button onClick={ () => clickedEqual() }>=</button></td>
               </tr>
             </table>
           </div>
